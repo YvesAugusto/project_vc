@@ -1,13 +1,13 @@
 import matplotlib.pyplot as plt
-from tools import filters
-from tools import parse
-from tools import conv
 from imutils import resize
 import numpy as np
 import matplotlib
 import cv2 as cv
 import argparse
 import os
+from tools import filters
+from tools import parse
+from tools import conv
 
 PATH = "images/gauss/{}"
 parser = argparse.ArgumentParser()
