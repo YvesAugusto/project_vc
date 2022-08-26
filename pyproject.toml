@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "conv"
+version = "0.1.0"
+description = ""
+authors = ["yves <yves.romero@lia.ifce.edu.br>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+numpy = "^1.23.2"
+matplotlib = "^3.5.3"
+opencv-python = "^4.6.0"
+imutils = "^0.5.4"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
