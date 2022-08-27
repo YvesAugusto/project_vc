@@ -11,19 +11,19 @@ from tools import conv
 
 PATH = "images/gauss/{}"
 parser = argparse.ArgumentParser()
-parser.add_argument('--filepath', '-filepath',
+parser.add_argument('--filepath', '-f',
                     type=str, help=parse.HELP_FILEPATH)
-parser.add_argument('--strides', '-strides',  default=(1, 1),
+parser.add_argument('--strides', '-s',  default=(1, 1),
                     type=parse.tuple_type, help=parse.HELP_STRIDES)
-parser.add_argument('--window_size', '-window_size',  default=(3, 3),
+parser.add_argument('--window_size', '-w',  default=(3, 3),
                     type=parse.tuple_type, help=parse.HELP_WINDOW)
-parser.add_argument('--rsz', '-resize_width',  default=200,
+parser.add_argument('--resize_width', '-rsz',  default=200,
                     type=int, help=parse.HELP_RSZ)
-parser.add_argument('--sigma', '-sigma',  default=1.,
+parser.add_argument('--sigma', '-sig',  default=1.,
                     type=float, help=parse.HELP_SIGMA)
-parser.add_argument('--padding', '-padding',  default='same', type=str,
+parser.add_argument('--padding', '-p',  default='same', type=str,
                     choices=['same', 'valid'], help=parse.HELP_PADDING)
-parser.add_argument('--svf', '-save_filename',  default=None,
+parser.add_argument('--save_filename', '-svf',  default=None,
                     type=str, help=parse.HELP_SAVE)
 
 matplotlib.use('TKAgg')
@@ -31,14 +31,14 @@ matplotlib.use('TKAgg')
 if __name__ == '__main__':
     args = parser.parse_args()
     image = cv.imread(args.filepath, 0)
-    image = resize(image, args.rsz)
+    image = resize(image, args.resize_width)
     kernel = filters.gaussian(args.window_size[0], args.sigma)
     gaussian = conv.conv2d(
         img=image, kernel=kernel, strides=args.strides,
         padding=args.padding,
     )[:,:,0]
-    filename = args.svf
-    if not args.svf:
+    filename = args.save_filename
+    if not args.save_filename:
         filename = "{}_gauss_sigma_{}_{}x{}.png"
         filename = filename.format(
             args.filepath.split("/")[-1].split(".")[0],
