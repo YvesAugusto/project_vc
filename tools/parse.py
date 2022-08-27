@@ -7,6 +7,8 @@ HELP_PADDING = "Este argumento determinada dois tipos de padding, 'valid' ou 'sa
                "aplica padding de modo a manter as dimensões da imagem na saída da convolução"
 HELP_SAVE = "Este argumento determina o nome da imagem que será salva com o resultado da operação"
 HELP_SIGMA = "Este argumento determina o sigma do filtro gaussiano"
+HELP_NORM = "Este argumento determina se o histograma exibido é normalizado, ou não"
+HELP_BINS = "Este argumento determina o número de faixas em que o histograma será dividido"
 def tuple_type(strings):
     strings = strings.replace("(", "").replace(")", "")
     mapped_int = map(int, strings.split(","))
