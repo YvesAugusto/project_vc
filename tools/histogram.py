@@ -19,15 +19,15 @@ def normalize_histogram(histogram):
     return histogram / np.sum(histogram)
 
 def make_axis_y_from_x(histogram, indexes, range_values):
-    axis = np.zeros(range_values.shape)
+    axis = np.zeros(range_values.shape)  
     for idi, index in enumerate(indexes):
-        axis[index[0]: index[1]] = histogram[idi]
+        if index[0] == index[1]:
+            index[1] += 1
+        axis[index[0]: index[1] + 1] = histogram[idi]
     return axis
 
 if __name__ == '__main__':
     image = cv.imread('images/brad.jpg', 0)
     indexes, histogram = calc_histogram_vector(image)
-    print(indexes, histogram)
     histogram = normalize_histogram(histogram)
     indexes, histogram = split_histogram(histogram, 20)
-    print(indexes, histogram)

@@ -9,7 +9,7 @@ PATH = "images/histogram/{}"
 parser = argparse.ArgumentParser()
 parser.add_argument('--filepath', '-f',
                     type=str, help=parse.HELP_FILEPATH)
-parser.add_argument('--bins', '-b',  default=1,
+parser.add_argument('--bins', '-b',  default=255,
                     type=int, help=parse.HELP_BINS)
 parser.add_argument('--norm', '-n',  default=0,
                     type=int, help=parse.HELP_NORM)
@@ -25,11 +25,15 @@ if __name__ == '__main__':
     if args.norm:
         hist = histogram.normalize_histogram(hist)
         filename += "_norm"
-    axis = histogram.make_axis_y_from_x(hist, indexes, np.arange(256))
+    axis = hist
+    if args.bins < 255:
+        axis = histogram.make_axis_y_from_x(hist, indexes, np.arange(256))
+    x_axis = np.arange(axis.shape[0])
+    xticks = np.arange(0, axis.shape[0], 25)
     fig, ax = plt.subplots(1, 2)
     ax[0].imshow(img, cmap='gray')
     plt.subplots_adjust(wspace=0.25)
-    ax[1].plot(np.arange(256), axis)
-    plt.xticks(np.arange(0, 256, 25), fontsize=6)
+    ax[1].plot(x_axis, axis)
+    plt.xticks(xticks, fontsize=6)
     plt.yticks(fontsize=8)
     plt.show()
