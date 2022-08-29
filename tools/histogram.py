@@ -1,5 +1,10 @@
+import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib
 import cv2 as cv
+import itertools
+
+matplotlib.use('TKAgg')
 
 def calc_histogram_vector(img):
     count_vector = np.zeros(256)
@@ -18,6 +23,10 @@ def split_histogram(histogram_vector, bins):
 def normalize_histogram(histogram):
     return histogram / np.sum(histogram)
 
+def min_max_scaler(vec):
+    vec = 255 * (vec - vec.min()) / (vec.max() - vec.min())
+    return  vec.astype('uint8')
+
 def make_axis_y_from_x(histogram, indexes, range_values):
     axis = np.zeros(range_values.shape)  
     for idi, index in enumerate(indexes):
@@ -26,8 +35,26 @@ def make_axis_y_from_x(histogram, indexes, range_values):
         axis[index[0]: index[1] + 1] = histogram[idi]
     return axis
 
+def cumulative_sum_histogram(hist):
+    return np.array(list(itertools.accumulate(hist, lambda p, q: p + q)))
+
+def equalize_hist(img, bins):
+    flatten = np.asarray(img).flatten()
+    indexes, histogram = calc_histogram_vector(img)
+    indexes, histogram = split_histogram(histogram, bins)
+    histogram = make_axis_y_from_x(histogram, indexes, np.arange(256))
+    cum_sum = cumulative_sum_histogram(histogram)
+    scaled = min_max_scaler(cum_sum)
+    equalized = scaled[flatten]
+    return np.reshape(equalized, img.shape)
+
 if __name__ == '__main__':
     image = cv.imread('images/brad.jpg', 0)
     indexes, histogram = calc_histogram_vector(image)
     histogram = normalize_histogram(histogram)
     indexes, histogram = split_histogram(histogram, 20)
+    equalized = equalize_hist(image, 20)
+    fig, ax = plt.subplots(1, 2)
+    ax[0].imshow(image, cmap='gray')
+    ax[1].imshow(equalized, cmap='gray')
+    plt.show()
