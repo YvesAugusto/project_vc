@@ -9,7 +9,7 @@ import matplotlib
 import cv2 as cv
 import argparse
 
-PATH = "images/prewitt/{}"
+PATH = "images/laplacian/{}"
 parser = argparse.ArgumentParser()
 parser.add_argument('--filepath', '-f',
                     type=str, help=parse.HELP_FILEPATH)
@@ -28,34 +28,27 @@ parser.add_argument('--save_filename', '-svf',  default=None,
 
 matplotlib.use('TKAgg')
 
-kernel_gx = filters.prewitt_gx().reshape(3, 3, 1)
-kernel_gy = filters.prewitt_gy().reshape(3, 3, 1)
-
-def prewiit_prod(window, kernel):
-    conv_gx = conv.conv_filter_and_window(window, kernel_gx)
-    conv_gy = conv.conv_filter_and_window(window, kernel_gy)
-    return np.sqrt(conv_gx ** 2 + conv_gy ** 2)
-
 if __name__ == '__main__':
     args = parser.parse_args()
     if args.window_size[0] > 3 or args.window_size[1] > 3:
         print("Só é possível efetuar operações com filtros 3x3 para os casos: laplaciano, prewitt e sobel")
+    kernel_gx = filters.laplacian().reshape(3, 3, 1)
     image = cv.imread(args.filepath, 0)
     image = resize(image, args.resize_width)
-    prewitt_img = conv.conv2d(
+    laplacian_img = conv.conv2d(
         img=image, kernel=kernel_gx, strides=args.strides,
-        padding=args.padding, prod_function=prewiit_prod
+        padding=args.padding
     )[:, :, 0]
-    prewitt_img = abs(prewitt_img)
+    laplacian_img = abs(laplacian_img).clip(0, 255)
     filename = args.save_filename
     if not args.save_filename:
-        filename = "{}_prewitt_{}x{}.png"
+        filename = "{}_laplacian_{}x{}.png"
         filename = filename.format(
             args.filepath.split("/")[-1].split(".")[0],
             kernel_gx.shape[0], kernel_gx.shape[1]
         )
-    cv.imwrite(PATH.format(filename), prewitt_img)
+    cv.imwrite(PATH.format(filename), laplacian_img)
     fig, ax = plt.subplots(1, 2)
     ax[0].imshow(image, cmap='gray')
-    ax[1].imshow(prewitt_img, cmap='gray')
+    ax[1].imshow(laplacian_img, cmap='gray')
     plt.show()
