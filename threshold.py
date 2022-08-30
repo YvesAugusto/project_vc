@@ -42,4 +42,9 @@ if __name__ == '__main__':
     plt.xticks(fontsize=6)
     plt.yticks(fontsize=6)
 
+    filename = PATH.format(args.filepath.split("/")[-1].split(".")[0]+"_"+str(args.limiares)+"_"+str(args.valores)+".png")
+    for i in range(2):
+        for j in range(2):
+            ax[i][j].figure.savefig(filename)
+
     plt.show()
