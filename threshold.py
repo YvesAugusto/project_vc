@@ -1,5 +1,5 @@
 import argparse
-from tools import thresholding, parse
+from tools import thresholding, parse, histogram
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib
@@ -25,7 +25,21 @@ if __name__ == '__main__':
         ))
         exit(1)
     thresholded_image = thresholding.threshold_image(image, args.limiares, args.valores)
-    fig, ax = plt.subplots(1, 2)
-    ax[0].imshow(image, cmap='gray')
-    ax[1].imshow(thresholded_image, cmap='gray')
+    fig, ax = plt.subplots(2, 2)
+    ax[0][0].imshow(image, cmap='gray')
+    ax[0][1].imshow(thresholded_image, cmap='gray')
+
+
+    indexes, axis = histogram.calc_histogram_vector(image)
+    x_axis = np.arange(axis.shape[0])
+    ax[1][0].plot(x_axis, axis)
+    plt.xticks(fontsize=6)
+    plt.yticks(fontsize=6)
+
+    indexes, axis = histogram.calc_histogram_vector(thresholded_image)
+    x_axis = np.arange(axis.shape[0])
+    ax[1][1].plot(x_axis, axis)
+    plt.xticks(fontsize=6)
+    plt.yticks(fontsize=6)
+
     plt.show()
