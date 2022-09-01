@@ -3,7 +3,7 @@ Primeiro Trabalho da disciplina de Visão Computacional
 
 ## 1. Clone this repository
 ``` shell
-> git@github.com:YvesAugusto/project_vc.git
+> git clone git@github.com:YvesAugusto/project_vc.git
 ```
 ## 2. Install poetry: 
 ``` shell
