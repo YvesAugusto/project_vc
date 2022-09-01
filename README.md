@@ -5,9 +5,11 @@ Primeiro Trabalho da disciplina de Visão Computacional
 > git@github.com:YvesAugusto/project_vc.git
 ## 2. Install poetry: 
 > pip install poetry
-## 3. Activate virtual environment and install dependencies: 
+## 3. Activate virtual environment and install dependencies:
+``` shell
 > poetry shell
 > poetry install
+```
 ## Run some examples - low-pass filters
 Lets run mean filter on a (3x3) kernel with a (2, 2) strides step, using the default padding. 
 > python3 media.py --filepath images/brad.jpg --window_size 3,3 --strides (2,2) --padding "same"
@@ -17,9 +19,11 @@ Lets run gaussian filter on a (5x5) kernel with σ = 1.5, using the default padd
 > python3 mediana.py --filepath images/brad.jpg --window_size 5,5 --sigma 1.5
 ## Run some examples - high-pass filters
 Lets run prewitt, sobel and laplacian filters on brad pitt image
+``` shell
 > python3 prewitt.py --filepath images/brad.jpg
 > python3 sobel.py --filepath images/brad.jpg
 > python3 laplaciano.py --filepath images/brad.jpg
+```
 ## Run some examples - histogram and histogram equalization
 Show histogram using 30 bins
 > python3 show_histogram.py --filepath images/test.jpg --bins 30
