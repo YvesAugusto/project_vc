@@ -24,6 +24,8 @@ def normalize_histogram(histogram):
     return histogram / np.sum(histogram)
 
 def min_max_scaler(vec):
+    # Este método pega os elementos de um vetor qualquer,
+    # e os transforma para a escala de (0, 255).
     vec = 255 * (vec - vec.min()) / (vec.max() - vec.min())
     return  vec.astype('uint8')
 
@@ -36,6 +38,9 @@ def make_axis_y_from_x(histogram, indexes, range_values):
     return axis
 
 def cumulative_sum_histogram(hist):
+    # Este método efetua a soma cumulativa de uma lista qualquer,
+    # atribuindo a cada elemento (i), a soma dos seus antecessores
+    # com ele mesmo
     return np.array(list(itertools.accumulate(hist, lambda p, q: p + q)))
 
 def equalize_hist(img, bins):

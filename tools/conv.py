@@ -59,30 +59,56 @@ def stretch_limits(image, min, max):
         im[:, :, c] = 255 * (im[:, :, c] - im[:, :, c].min())/(im[:, :, c].max() - im[:, :, c].min())
     return im
 
-def conv2d(img, kernel, strides=(1,1), padding='same', prod_function=conv_filter_and_window):
+def conv2d(img, kernel, strides=(1,1), 
+           padding='same', 
+           prod_function=conv_filter_and_window):
+
+    #copy image
     image = img.copy()
     channels = 3
+    # se a imagem possui menos que tres canais, reshape
     if len(image.shape) == 2:
         image = np.reshape(image, (image.shape[0], image.shape[1], 1))
         channels = 1
+    # se o kernel possui menos que tres canais, reshape
     if len(kernel.shape) == 2:
         kernel = np.reshape(kernel, (kernel.shape[0], kernel.shape[1], 1))
         channels = 1
+    # aplica padding
     padded_image = apply_padding(image, paddings_map[padding](image, kernel))
-    steps_on_y = int(np.ceil((padded_image.shape[0] - kernel.shape[0] + 1) / strides[0]))
-    steps_on_x = int(np.ceil((padded_image.shape[1] - kernel.shape[1] + 1) / strides[1]))
+    # calcula os passos na direcao das linhas
+    steps_on_y = int(
+        np.ceil(
+            (padded_image.shape[0] - kernel.shape[0] + 1) / strides[0]
+        )
+    )
+    # calcula os passos na direcao das colunas
+    steps_on_x = int(
+        np.ceil(
+            (padded_image.shape[1] - kernel.shape[1] + 1) / strides[1]
+        )
+    )
+    # calcula ponto de partida nas linhas
     start_y = int((kernel.shape[0] - 1) / 2)
+    # calcula ponto de partida nas colunas
     start_x = int((kernel.shape[1] - 1) / 2)
-
+    # gera nova imagem
     new_image_shape = (
         steps_on_y, steps_on_x, channels
     )
     cp = np.zeros(new_image_shape)
     i = 0
-    for center_y in range(start_y, start_y + strides[1] * steps_on_y, strides[1]):
+    # calcula o ponto de chegada nas linhas
+    end_y = start_y + strides[1] * steps_on_y
+    for center_y in range(start_y, end_y, strides[1]):
         j = 0
-        for center_x in range(start_x, start_x + strides[0] * steps_on_x, strides[0]):
-            window = define_window(padded_image, center_y, center_x, start_y, start_x)
+        # calcula o ponto de chegada nas colunas
+        end_x = start_x + strides[0] * steps_on_x
+        for center_x in range(start_x, endx, strides[0]):
+            # determina janela onde se aplicara convolucao
+            window = define_window(padded_image, center_y, 
+                                   center_x, start_y, start_x)
+            # aplica convolucao do kernel na janela
             cp[i, j, :] = prod_function(window, kernel)
             j += 1
         i += 1
