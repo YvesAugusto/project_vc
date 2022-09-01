@@ -48,3 +48,32 @@ Set pixels between 0 and 50 to 0, pixels between 50 and 160 to 127 and those one
 ``` shell
 > python3 threshold.py --filepath images/lena.png --limiares 0,50 50,160 160,255 --valores 0 127 255
 ```
+## If you have doubts ask for help
+You can see the argparse parameters using --help command
+``` shell
+> python3 mediana.py --help
+usage: mediana.py [-h] [--filepath FILEPATH] [--strides STRIDES] [--window_size WINDOW_SIZE]
+                  [--resize_width RESIZE_WIDTH] [--sigma SIGMA] [--padding {same,valid}]
+                  [--save_filename SAVE_FILENAME]
+
+options:
+  -h, --help            show this help message and exit
+  --filepath FILEPATH, -f FILEPATH
+                        Este argumento determinado o caminho do arquivo da imagem a ser lida
+  --strides STRIDES, -s STRIDES
+                        Este argumento determinado a largura do passo da convolução. Exemplo: --strides 2,2
+  --window_size WINDOW_SIZE, -w WINDOW_SIZE
+                        Este argumento passa o tamanho da janela
+  --resize_width RESIZE_WIDTH, -rsz RESIZE_WIDTH
+                        Este argumento determina se a imagem será redimensionada e, caso seja, o novo tamanho de
+                        largura
+  --sigma SIGMA, -sig SIGMA
+                        Este argumento determina o sigma do filtro gaussiano
+  --padding {same,valid}, -p {same,valid}
+                        Este argumento determinada dois tipos de padding, 'valid' ou 'same'. O primeiro tipo não
+                        aplica padding e reduz a dimensão da imagem na saída da convolução. O segundo tipo aplica
+                        padding de modo a manter as dimensões da imagem na saída da convolução
+  --save_filename SAVE_FILENAME, -svf SAVE_FILENAME
+                        Este argumento determina o nome da imagem que será salva com o resultado da operação
+```
+
