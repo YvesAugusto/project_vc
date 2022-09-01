@@ -104,7 +104,7 @@ def conv2d(img, kernel, strides=(1,1),
         j = 0
         # calcula o ponto de chegada nas colunas
         end_x = start_x + strides[0] * steps_on_x
-        for center_x in range(start_x, endx, strides[0]):
+        for center_x in range(start_x, end_x, strides[0]):
             # determina janela onde se aplicara convolucao
             window = define_window(padded_image, center_y, 
                                    center_x, start_y, start_x)
