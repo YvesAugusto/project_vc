@@ -48,7 +48,7 @@ Set pixels between 0 and 50 to 0, pixels between 50 and 160 to 127 and those one
 ``` shell
 > python3 threshold.py --filepath images/lena.png --limiares 0,50 50,160 160,255 --valores 0 127 255
 ```
-## If you have doubts ask for help
+## If you have doubts, ask for help
 You can see the argparse parameters using --help command
 ``` shell
 > python3 mediana.py --help
