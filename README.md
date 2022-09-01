@@ -17,11 +17,11 @@ Primeiro Trabalho da disciplina de Visão Computacional
 ## Run some examples - low-pass filters
 Lets run mean filter on a (3x3) kernel with a (2, 2) strides step, using the default padding. 
 ``` shell
-> python3 media.py --filepath images/brad.jpg --window_size 3,3 --strides (2,2) --padding "same"
+> python3 media.py --filepath images/brad.jpg --window_size 3,3 --strides 2,2 --padding "same"
 ```
 Lets run median filter on a (5x5) kernel with a (1, 1) strides step, using the default padding. 
 ``` shell
-> python3 mediana.py --filepath images/brad.jpg --window_size 5,5 --strides (1,1) --padding "same"
+> python3 mediana.py --filepath images/brad.jpg --window_size 5,5 --strides 1,1 --padding "same"
 ```
 Lets run gaussian filter on a (5x5) kernel with σ = 1.5, using the default padding. 
 ``` shell
