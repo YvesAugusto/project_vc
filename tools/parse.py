@@ -9,6 +9,7 @@ HELP_SAVE = "Este argumento determina o nome da imagem que será salva com o res
 HELP_SIGMA = "Este argumento determina o sigma do filtro gaussiano"
 HELP_NORM = "Este argumento determina se o histograma exibido é normalizado, ou não"
 HELP_BINS = "Este argumento determina o número de faixas em que o histograma será dividido"
+HELP_FUNCTION = "Este argumento determina a função que vai definir o threshold do algoritmo de threshold adaptativo"
 
 def tuple_type(strings):
     strings = strings.replace("(", "").replace(")", "")
