@@ -81,7 +81,7 @@ def otsu(img: np.ndarray, block_size: tuple):
         )
     return cp
 
-def compute_otsu_criteria(im, th):
+def calculate_weighted_variance(im, th):
     thresholded_im = np.zeros(im.shape)
     thresholded_im[im >= th] = 1
 
@@ -102,7 +102,7 @@ def compute_otsu_criteria(im, th):
     
 def otsu_window(window):
     threshold_range = range(np.max(window)+1)
-    criterias = list(map(lambda th: compute_otsu_criteria(window, th), threshold_range))
+    criterias = list(map(lambda th: calculate_weighted_variance(window, th), threshold_range))
     best_threshold = threshold_range[np.argmin(criterias)]
     return best_threshold
 
