@@ -35,9 +35,9 @@ if __name__ == '__main__':
     adaptive_thresh = adaptive.adaptive_threshold(image, args.block_size, function_map[args.function])
     filename = args.save_filename
     if not args.save_filename:
-        filename = "{}_adaptive_block_{}x{}.png"
+        filename = "{}_adaptive_block_{}_{}x{}.png"
         filename = filename.format(
-            args.filepath.split("/")[-1].split(".")[0],
+            args.filepath.split("/")[-1].split(".")[0], args.function,
             args.block_size[0], args.block_size[1]
         )
     cv.imwrite(PATH.format(filename), adaptive_thresh)
