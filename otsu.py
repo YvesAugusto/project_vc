@@ -12,7 +12,7 @@ PATH = "images/otsu/{}"
 parser = argparse.ArgumentParser()
 parser.add_argument('--filepath', '-f',
                     type=str, help=parse.HELP_FILEPATH)
-parser.add_argument('--block_size', '-w',  default=(3, 3),
+parser.add_argument('--block_size', '-w',  default=(0 ,0),
                     type=parse.tuple_type, help=parse.HELP_WINDOW)
 parser.add_argument('--resize_width', '-rsz',  default=400,
                     type=int, help=parse.HELP_RSZ)
@@ -26,7 +26,10 @@ if __name__ == '__main__':
     args = parser.parse_args()
     image = cv.imread(args.filepath, 0)
     image = resize(image, args.resize_width)
-    otsu_image = otsu.otsu(image, args.block_size)
+    block_size = args.block_size
+    if args.block_size == (0, 0):
+        block_size = (image.shape[0], image.shape[1])
+    otsu_image = otsu.otsu(image, block_size)
     filename = args.save_filename
     if not args.save_filename:
         filename = "{}_otsu_block_{}x{}.png"
