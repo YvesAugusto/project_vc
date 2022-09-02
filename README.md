@@ -54,7 +54,7 @@ Apply adaptive thresholding dividing the image onto (32x32) block sizes
 > python3 adaptive.py --filepath images/test.jpg --block_size 32,32
 ```
 ## Run some examples - OTSU thresholding
-Apply OTSU thresholding
+Apply OTSU thresholding to image
 ``` shell
 > python3 otsu.py --filepath images/test.jpg
 ```
