@@ -10,15 +10,15 @@ matplotlib.use('TKAgg')
 
 PATH = "images/adaptive/{}"
 function_map = {
-    'threshold_mean': adaptive.threshold_mean,
-    'threshold_median': adaptive.threshold_median
+    'mean': adaptive.threshold_mean,
+    'median': adaptive.threshold_median
 }
 parser = argparse.ArgumentParser()
 parser.add_argument('--filepath', '-f',
                     type=str, help=parse.HELP_FILEPATH)
 parser.add_argument('--block_size', '-w',  default=(3, 3),
                     type=parse.tuple_type, help=parse.HELP_WINDOW)
-parser.add_argument('--function', '-fc',  default='threshold_mean',
+parser.add_argument('--function', '-fc',  default='mean',
                     type=str, help=parse.HELP_FUNCTION, choices=function_map.keys())
 parser.add_argument('--resize_width', '-rsz',  default=400,
                     type=int, help=parse.HELP_RSZ)
