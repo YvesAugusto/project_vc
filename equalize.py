@@ -1,6 +1,5 @@
 from tools import histogram, parse
 import matplotlib.pyplot as plt
-import numpy as np
 import matplotlib
 import cv2 as cv
 import argparse

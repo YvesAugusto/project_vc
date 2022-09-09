@@ -43,15 +43,25 @@ def cumulative_sum_histogram(hist):
     # com ele mesmo
     return np.array(list(itertools.accumulate(hist, lambda p, q: p + q)))
 
-def equalize_hist(img, bins):
-    flatten = np.asarray(img).flatten()
+def compute_cumulative(img, bins):
     indexes, histogram = calc_histogram_vector(img)
     indexes, histogram = split_histogram(histogram, bins)
     histogram = make_axis_y_from_x(histogram, indexes, np.arange(256))
     cum_sum = cumulative_sum_histogram(histogram)
     scaled = min_max_scaler(cum_sum)
+    return scaled
+
+def equalize_hist(img, bins):
+    flatten = np.asarray(img).flatten()
+    scaled = compute_cumulative(img, bins)
     equalized = scaled[flatten]
     return np.reshape(equalized, img.shape)
+
+def transfer_histogram(origo, terminum):
+    transfer_function = compute_cumulative(origo, 255)
+    flatten = np.asarray(terminum).flatten()
+    transfered = transfer_function[flatten]
+    return np.reshape(transfered, terminum.shape)
 
 if __name__ == '__main__':
     image = cv.imread('images/brad.jpg', 0)
